@@ -17,6 +17,7 @@ it provides :
 UART0: 0x7E20 1000
 
 memory mapped registers :
+
 +--------------------------------------------------------------------+
 |Address Offset | Register Name |    Description              | Size |
 +--------------------------------------------------------------------+
