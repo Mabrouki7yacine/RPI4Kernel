@@ -2,15 +2,29 @@ CC = aarch64-linux-gnu-gcc
 LD = aarch64-linux-gnu-ld
 OBJCOPY = aarch64-linux-gnu-objcopy
 
+BUILD = build/
+
 CFLAGS = -std=c99 -ffreestanding -mgeneral-regs-only
 
 all:
-	$(CC) -c boot.s -o boot.o
-	$(CC) $(CFLAGS) -c main.c
-	$(LD) -nostdlib -T link.lds -o kernel.elf boot.o main.o
-	$(OBJCOPY) -O binary kernel.elf kernel8.img
+	mkdir -p $(BUILD)
+
+	$(CC) -c boot.s -o $(BUILD)boot.o
+	$(CC) -c lib.s  -o $(BUILD)lib.o
+
+	$(CC) $(CFLAGS) -c main.c -o $(BUILD)main.o
+	$(CC) $(CFLAGS) -c uart.c -o $(BUILD)uart.o
+
+	$(LD) -nostdlib -T link.lds \
+		-o $(BUILD)kernel.elf \
+		$(BUILD)boot.o \
+		$(BUILD)main.o \
+		$(BUILD)uart.o \
+		$(BUILD)lib.o
+
+	$(OBJCOPY) -O binary \
+		$(BUILD)kernel.elf \
+		$(BUILD)kernel8.img
 
 clean:
-	rm -f *.o
-	rm -f *.img
-	rm -f *.elf
+	rm -rf $(BUILD)

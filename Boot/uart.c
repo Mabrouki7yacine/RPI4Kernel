@@ -5,6 +5,9 @@ void uart_init(void) {
     uint64_t address = UART0_BASE_ADDR + UART_CTRL_REG;
     store_word(address, 0); // Disable UART
 
+    // Wait until UART is no longer busy
+    while (load_word(UART0_BASE_ADDR + UART_FLAG_REG) & (1 << 3));
+
     address = UART0_BASE_ADDR + UART_LINECTRL_REG;
     uint32_t lcrh = 0;
     store_word(address, lcrh); // Flush FIFO
@@ -37,7 +40,7 @@ void write_char(char c) {
 }
 
 void write_str(const char* str) {
-    for (uint8_t i = 0; i < 64 || str[i] != '\0'; i++) {
+    for (uint32_t i = 0; i < 64 && str[i] != '\0'; i++) {
         write_char(str[i]);
     }
 }
