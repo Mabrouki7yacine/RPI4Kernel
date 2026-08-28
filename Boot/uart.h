@@ -1,6 +1,8 @@
 #ifndef UART_H
 #define UART_H
 
+#include "stdint.h"
+
 #define UART0_BASE_ADDR 0xFE201000
 
 #define UART_DATA_REG     0x00000000
