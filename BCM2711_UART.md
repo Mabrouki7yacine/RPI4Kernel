@@ -18,9 +18,8 @@ UART0: 0x7E20 1000
 
 memory mapped registers :
 
-+--------------------------------------------------------------------+
 |Address Offset | Register Name |    Description              | Size |
-+--------------------------------------------------------------------+
+| ------------- | ------------: | --------------------------: | ---: |
 |      0x00     |DR             |Data Register                | 32   |
 |      0x04     |RSRECR         |                             | 32   |
 |      0x18     |FR             |Flag register                | 32   |
@@ -39,4 +38,17 @@ memory mapped registers :
 |      0x84     |ITIP           |Integration test input reg   | 32   |
 |      0x88     |ITOP           |Integration test output reg  | 32   |
 |      0x8C     |TDR            |Test Data reg                | 32   |
-+--------------------------------------------------------------------+
+
+UART_DR : UART DATA REG
+For words to be transmitted:
+if the FIFOs are enabled, data written to this location is pushed onto the transmit FIFO.
+if the FIFOs are not enabled, data is stored in the transmitter holding register (the bottom word of the
+transmit FIFO).
+The write operation initiates transmission from the UART. The data is prefixed with a start bit,
+appended with the appropriate parity bit (if parity is enabled), and a stop bit. The resultant word is
+then transmitted.
+For received words:
+if the FIFOs are enabled, the data byte and the 4-bit status (break, frame, parity, and overrun) is
+pushed onto the 12-bit wide receive FIFO
+if the FIFOs are not enabled, the data byte and status are stored in the receiving holding register (the
+bottom word of the receive FIFO).
