@@ -20,8 +20,11 @@ SECTIONS
         *(.data*)
     }
 
-    .bss : 
-    {
-        *(.bss*)
+    .bss : {
+        bss_start = .;
+        *(.bss)
+        *(COMMON)
+        . = ALIGN(8);
+        bss_end = .;
     }
 }

@@ -76,5 +76,20 @@ AlreadyEL1 :
     ERET
 
 Kernel_Entry :
+    // Init Bss to Zeroes
+    ldr x1, =bss_start
+    ldr x2, =bss_end
+    b LoopFillZerobss
+
+WriteZero :
+    str XZR, [x1]
+    add x1, x1, #8 // 64 bit -> 8 bytes
+    b LoopFillZerobss
+
+
+LoopFillZerobss :
+    cmp x1, x2       // Compare current address with bss_end
+    b.lo WriteZero   // Branch if x1 < x2 (unsigned)
+
     bl kernel_main
     b Park_Core
