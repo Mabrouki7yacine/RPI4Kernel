@@ -13,6 +13,7 @@ all:
 	$(CC) -c util/lib.s  -o $(BUILD)lib.o
 
 	$(CC) $(CFLAGS) -c main.c -o $(BUILD)main.o
+	$(CC) $(CFLAGS) -c print.c -o $(BUILD)print.o
 	$(CC) $(CFLAGS) -c uart.c -o $(BUILD)uart.o
 
 	$(LD) -nostdlib -T link.lds \
@@ -20,6 +21,7 @@ all:
 		$(BUILD)boot.o \
 		$(BUILD)main.o \
 		$(BUILD)uart.o \
+		$(BUILD)print.o \
 		$(BUILD)lib.o
 
 	$(OBJCOPY) -O binary \

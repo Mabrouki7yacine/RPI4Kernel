@@ -35,3 +35,5 @@ bit[3..0] = 0b0101 -> use EL1 and its own sp
 
 HCR_EL2, Hypervisor Configuration Register, EL2
 The HCR_EL2 provides configuration control for virtualization, including whether various Non-secure operations are trapped to EL2.
+
+str XZR, [Reg] is the most efficient way to write memset a region with 0

@@ -17,6 +17,7 @@ void gpio_uart_init(void)
 
     store_word(address, value);
 }
+
 void uart_init(void)
 {
     // Disable UART
@@ -58,7 +59,7 @@ void write_char(char c) {
 }
 
 void write_str(const char* str) {
-    for (uint32_t i = 0; i < 64 && str[i] != '\0'; i++) {
+    for (uint32_t i = 0; i < 1024 && str[i] != '\0'; i++) {
         write_char(str[i]);
     }
 }
