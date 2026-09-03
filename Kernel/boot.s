@@ -66,14 +66,14 @@ AlreadyEL1 :
     orr x1, x1, #0x3C0 // mask exceptions
     msr SPSR_EL1, x1 // use EL1 and its own sp in Aarch64
 
+    adr x1, Kernel_Entry
+    msr ELR_EL1, x1 // the return address that ERET will use
+
     mov x1, #0x80000
     msr SP_EL1, x1 // set stack pointer
-
-    mov x1, #1
-    msr SPSel , x1 // set stack pointer to use SP_EL1
-
+    
     ISB // Ensure subsequent instructions observe updated system state
-    b Kernel_Entry
+    ERET
 
 Kernel_Entry :
     bl kernel_main
