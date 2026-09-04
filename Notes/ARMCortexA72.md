@@ -46,4 +46,9 @@ The HCR_EL2 provides configuration control for virtualization, including whether
 str XZR, [Reg] is the most efficient way to write memset a region with 0
 
 Exceptions :
-we have 2 types of 
+we have 2 types of exceptions :
+- Synchronous exception : illegal instructions, system calls, data aborts.
+- Asynchronous exception : interrupts (IRQ and FIQ), SErrors
+exception cannot take us from higher level to lower ones
+
+Exception vector table : when certain exception occurs the processor finds a specific handler in this table
