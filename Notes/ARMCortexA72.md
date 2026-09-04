@@ -1,3 +1,10 @@
+available regs in armv8 aarch64 execution state:
+General purpose regs : x0 -- x30 (64 bits regs)
+PState : register used to hold current process state (flags, IRQ mask, exception level, ...)
+XZR : zero register a register that holds value 0
+SP : stack pointer register
+PC : program counter
+
 Execution state : 
 the core can execute aarch64 or aarch32 its up to you to select the execution
 
@@ -37,3 +44,6 @@ HCR_EL2, Hypervisor Configuration Register, EL2
 The HCR_EL2 provides configuration control for virtualization, including whether various Non-secure operations are trapped to EL2.
 
 str XZR, [Reg] is the most efficient way to write memset a region with 0
+
+Exceptions :
+we have 2 types of 

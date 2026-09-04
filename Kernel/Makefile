@@ -14,12 +14,14 @@ all:
 
 	$(CC) $(CFLAGS) -c main.c -o $(BUILD)main.o
 	$(CC) $(CFLAGS) -c util/lib.c -o $(BUILD)lib_c.o
+	$(CC) $(CFLAGS) -c assert/assert.c -o $(BUILD)assert.o
 	$(CC) $(CFLAGS) -c print.c -o $(BUILD)print.o
 	$(CC) $(CFLAGS) -c uart.c -o $(BUILD)uart.o
 
 	$(LD) -nostdlib -T link.lds \
 		-o $(BUILD)kernel.elf \
 		$(BUILD)boot.o \
+		$(BUILD)assert.o \
 		$(BUILD)main.o \
 		$(BUILD)uart.o \
 		$(BUILD)print.o \
